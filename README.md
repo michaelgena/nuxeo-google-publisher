@@ -1,5 +1,5 @@
-# nuxeo-google-calendar-publisher
-This plugin enables you to publish on Google Calendar through a nuxeo automation operation.
+# nuxeo-google-publisher
+This plugin enables you to publish on Google Calendar / Task through a nuxeo automation operation.
 
 ## Build
 
@@ -10,7 +10,7 @@ mvn install
 
 ## Deploy
 
-Upload the package marketplace generated under the folder nuxeo-google-calendar-publisher-mp/target/ into your local packages of the nuxeo platform and install it.
+Upload the package marketplace generated under the folder nuxeo-google-publisher-mp/target/ into your local packages of the nuxeo platform and install it.
 
 ## Nuxeo Studio
 
@@ -18,7 +18,7 @@ Import the automation operation "Publisher" in your project registry. You will f
 
 **Notification>Publish on Google Calendar**
 
-This operation expects multiple parameters:
+The Google Calendar operation expects multiple parameters:
 - userEmailAddress: the user e-mail to whom an event will be created
 - summary: the title of the event
 - location: the location of the event
@@ -27,6 +27,12 @@ This operation expects multiple parameters:
 - endDate: the end date of the event
 - attendeeEmailAddress: e-mail address of the attendee (currently only one attendee is handled)
 
+The Google Task operation expects multiple parameters:
+- userEmailAddress: the user e-mail to whom an event will be created
+- title: the title of the task
+- notes: the notes of the task
+- dueDate: the due date of the task
+
 ## Configuration in the Nuxeo platform
 
 We use the OAuth2 authentification mechanism in order to do the publication on behalf of a user. In order to do that you need to have a google calendar api account with a client ID and Client Secret token. If you don't have one you have to create it here: https://console.developers.google.com/
@@ -34,12 +40,12 @@ We use the OAuth2 authentification mechanism in order to do the publication on b
 Then you need to add some modification under Administrator>Cloud Services>Service Providers>googledrive
 - Edit the Client ID and the Client Secret. Note that this is actually a workaround, the ideal solution would be to have a dedicated service provider named googlecalendar.
 
-- Edit the scope part by adding "email,https://www.google.com/calendar/feeds/" in order that the user authorizes the offline access to his calendar.
+- Edit the scope part by adding "email,https://www.google.com/calendar/feeds/,https://www.googleapis.com/auth/tasks" in order that the user authorizes the offline access to his calendar and tasks.
  
 ## Usage
 
-Before launching the operation of publication, make sure that you go through the offline access authorization process, in order to have a valid token for the api. To do so, you need to go to Home>Cloud Services and Connect to Google Drive then accept the offline access to the user's calendar.
-That's it! Now you can run your publication operation, and you should be able to see that an event has been published on the calendar of the user.
+Before launching the operation of publication, make sure that you go through the offline access authorization process, in order to have a valid token for the api. To do so, you need to go to Home>Cloud Services and Connect to Google Drive then accept the offline access to the user's calendar and tasks.
+That's it! Now you can run your publication operation, and you should be able to see that an event has been published on the calendar/task of the user.
 
 ## Important Note
 
